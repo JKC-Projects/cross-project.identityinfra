@@ -12,3 +12,12 @@ resource "aws_route53_record" "smalldomains_auth" {
     zone_id = "Z2FDTNDATAQYW2"
   }
 }
+
+resource "aws_route53_record" "emaildomain_verification" {
+  zone_id         = data.aws_ssm_parameter.smalldomains_zone_id.value
+  allow_overwrite = true
+
+  name    = "_amazonses.${aws_ses_domain_identity.smalldomains.id}"
+  type    = "TXT"
+  records = [aws_ses_domain_identity.smalldomains.verification_token]
+}

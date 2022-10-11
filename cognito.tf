@@ -5,7 +5,8 @@ resource "aws_cognito_user_pool" "smalldomains" {
     case_sensitive = true
   }
 
-  username_attributes = ["email"]
+  username_attributes      = ["email"]
+  auto_verified_attributes = ["email"]
 
   password_policy {
     minimum_length    = 12
@@ -55,7 +56,7 @@ resource "aws_cognito_user_pool_client" "smalldomains" {
 }
 
 resource "aws_cognito_user_pool_domain" "smalldomains" {
-  domain          = local.fqdn
+  domain          = aws_route53_record.smalldomains_auth.fqdn
   certificate_arn = module.auth.tls_cert.arn
   user_pool_id    = aws_cognito_user_pool.smalldomains.id
 }
