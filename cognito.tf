@@ -46,7 +46,7 @@ resource "aws_cognito_user_pool" "smalldomains" {
 
 resource "aws_cognito_user_pool_client" "smalldomains" {
   name                                 = "web-app"
-  user_pool_id                         = aws_cognito_user_pool.smalldomains
+  user_pool_id                         = aws_cognito_user_pool.smalldomains.id
   callback_urls                        = var.environment == "prod" ? ["https://pages.small.domains"] : ["http://localhost:3000", "https://pages.dev.small.domains"]
   allowed_oauth_flows_user_pool_client = true
   allowed_oauth_flows                  = ["code"]
