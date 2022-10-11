@@ -22,11 +22,16 @@ provider "aws" {
   region = "eu-west-1"
 
   default_tags {
-    tags = {
-      project     = "smalldomains"
-      managed_by  = "terraform"
-      github_repo = "smalldomains.identityinfra"
-    }
+    tags = local.default_tags
+  }
+}
+
+provider "aws" {
+  alias  = "US_EAST_1"
+  region = "us-east-1"
+
+  default_tags {
+    tags = local.default_tags
   }
 }
 
