@@ -39,6 +39,5 @@ resource "aws_cognito_user_pool" "smalldomains" {
 
   email_configuration {
     email_sending_account = "COGNITO_DEFAULT"
-    from_email_address    = "do-not-reply.verification@small.domains"
   }
 }
