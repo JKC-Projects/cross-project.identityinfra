@@ -3,7 +3,7 @@ resource "aws_route53_record" "smalldomains_auth" {
   name            = aws_cognito_user_pool_domain.smalldomains.domain
   type            = "A"
   ttl             = 60
-  zone_id         = var.route53_zone_id
+  zone_id         = data.aws_ssm_parameter.smalldomains_zone_id
 
   alias {
     evaluate_target_health = false
