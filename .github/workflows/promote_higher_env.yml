@@ -7,7 +7,7 @@ on:
 
 jobs:
   is-terraform-code-good:
-    name: 'Check Code Format'
+    name: 'Validate and Format Code'
     runs-on: ubuntu-latest
     
     steps:

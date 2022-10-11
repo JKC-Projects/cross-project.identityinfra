@@ -5,7 +5,7 @@ on:
 
 jobs:
   is-terraform-code-good:
-    name: 'Check Code Format'
+    name: 'Validate and Format Code'
     runs-on: ubuntu-latest
     
     steps:
@@ -27,7 +27,7 @@ jobs:
   deploy-to-development:
     name: 'Deploy to development'
     runs-on: ubuntu-latest
-    environment: production
+    environment: development
     needs: is-terraform-code-good
     env:
       TF_WORKSPACE: smalldomains--identityinfra-dev
