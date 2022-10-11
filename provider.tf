@@ -21,7 +21,7 @@ terraform {
 provider "aws" {
   region = "eu-west-1"
 
-  default_tags {
+  default_tags = {
     project     = "smalldomains"
     managed_by  = "terraform"
     github_repo = "smalldomains.identityinfra"
