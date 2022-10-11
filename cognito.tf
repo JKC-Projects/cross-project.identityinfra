@@ -5,6 +5,8 @@ resource "aws_cognito_user_pool" "smalldomains" {
     case_sensitive = true
   }
 
+  username_attributes = "email"
+
   password_policy {
     minimum_length    = 12
     require_lowercase = true
@@ -40,4 +42,14 @@ resource "aws_cognito_user_pool" "smalldomains" {
   email_configuration {
     email_sending_account = "COGNITO_DEFAULT"
   }
+}
+
+resource "aws_cognito_user_pool_client" "smalldomains" {
+  name                                 = "web-app"
+  user_pool_id                         = aws_cognito_user_pool.smalldomains
+  callback_urls                        = var.environment == "prod" ? ["https://pages.small.domains"] : ["http://localhost:3000", "https://pages.dev.small.domains"]
+  allowed_oauth_flows_user_pool_client = true
+  allowed_oauth_flows                  = ["code"]
+  allowed_oauth_scopes                 = ["email", "openid"]
+  supported_identity_providers         = ["COGNITO"]
 }
