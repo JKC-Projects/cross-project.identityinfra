@@ -1,0 +1,51 @@
+name: 'Deploy to Development'
+
+on:
+  push:
+
+jobs:
+  is-terraform-code-good:
+    name: 'Check Code Format'
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      with:
+        ref: main
+    
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v1
+
+    - name: Terraform Format
+      run: terraform fmt -recursive -check
+
+    - name: Terraform Validate
+      run: terraform validate
+
+
+  deploy-to-development:
+    name: 'Deploy to development'
+    runs-on: ubuntu-latest
+    environment: production
+    needs: is-terraform-code-good
+    env:
+      TF_WORKSPACE: smalldomains--identityinfra-prod
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v1
+      with:
+        cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+
+    - name: Terraform Init
+      run: terraform init
+
+    - name: Terraform Plan
+      run: terraform plan
+
+    - name: Terraform Apply
+      run: terraform apply -auto-approve
