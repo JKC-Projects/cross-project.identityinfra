@@ -1,8 +1,9 @@
 resource "aws_cognito_user_pool" "smalldomains" {
   name = "smalldomains-users"
 
-  # usernames are case sensitive
-  case_sensitive = true
+  username_configuration {
+    case_sensitive = true
+  }
 
   password_policy {
     minimum_length    = 12
