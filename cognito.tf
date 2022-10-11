@@ -21,7 +21,7 @@ resource "aws_cognito_user_pool" "smalldomains" {
     email_message_by_link = "To verify your account, {##click here##}"
   }
 
-  mfa_configuration = "OFF" # users are not required to use MFA
+  mfa_configuration = "OPTIONAL"
 
   software_token_mfa_configuration {
     enabled = true
