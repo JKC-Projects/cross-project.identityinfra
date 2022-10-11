@@ -1,6 +1,6 @@
 resource "aws_route53_record" "smalldomains_auth" {
   allow_overwrite = true
-  name            = local.fqdn
+  name            = aws_cognito_user_pool_domain.smalldomains.domain
   type            = "A"
   zone_id         = data.aws_ssm_parameter.smalldomains_zone_id.value
 

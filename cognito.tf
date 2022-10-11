@@ -56,7 +56,7 @@ resource "aws_cognito_user_pool_client" "smalldomains" {
 }
 
 resource "aws_cognito_user_pool_domain" "smalldomains" {
-  domain          = aws_route53_record.smalldomains_auth.fqdn
+  domain          = local.fqdn
   certificate_arn = module.auth.tls_cert.arn
   user_pool_id    = aws_cognito_user_pool.smalldomains.id
 }
