@@ -6,7 +6,7 @@ resource "aws_ses_domain_identity" "smalldomains" {
   domain = local.env_root_domain
 }
 
-resource "aws_ses_domain_identity_verification" "example_verification" {
-  domain     = aws_ses_domain_identity.example.id
+resource "aws_ses_domain_identity_verification" "smalldomains" {
+  domain     = aws_ses_domain_identity.smalldomains.id
   depends_on = [aws_route53_record.emaildomain_verification]
 }
