@@ -17,7 +17,7 @@ resource "aws_route53_record" "emaildomain_verification" {
   zone_id         = data.aws_ssm_parameter.smalldomains_zone_id.value
   allow_overwrite = true
   ttl             = 360
-
+//TODO update
   name    = "_amazonses.${aws_ses_domain_identity.smalldomains.id}"
   type    = "TXT"
   records = [aws_ses_domain_identity.smalldomains.verification_token]
