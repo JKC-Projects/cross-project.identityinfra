@@ -18,7 +18,7 @@ resource "aws_cognito_user_pool" "smalldomains" {
 
   verification_message_template {
     default_email_option  = "CONFIRM_WITH_LINK"
-    email_subject         = "Verify your Account with SmallDomains"
+    email_subject         = "Account Verification with SmallDomains"
     email_message_by_link = "To verify your account, {##click here##}"
   }
 
@@ -41,7 +41,9 @@ resource "aws_cognito_user_pool" "smalldomains" {
   }
 
   email_configuration {
-    email_sending_account = "COGNITO_DEFAULT"
+    email_sending_account = "DEVELOPER"
+    source_arn = aws_ses_domain_identity.smalldomains.arn
+    from_email_address = "\"No Reply - Small Domains\" <noreply@${var.environment == "prod" ? "" : "${var.environment}."}small.domains>"
   }
 }
 
@@ -53,6 +55,7 @@ resource "aws_cognito_user_pool_client" "smalldomains" {
   allowed_oauth_flows                  = ["code"]
   allowed_oauth_scopes                 = ["email", "openid"]
   supported_identity_providers         = ["COGNITO"]
+  prevent_user_existence_errors        = "ENABLED"
 }
 
 resource "aws_cognito_user_pool_domain" "smalldomains" {
