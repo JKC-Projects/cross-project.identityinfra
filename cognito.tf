@@ -72,7 +72,8 @@ resource "aws_cognito_user_pool_client" "auth_only" {
   id_token_validity       = 3
   refresh_token_validity  = 120
   enable_token_revocation = true
-  token_validity_units = {
+  
+  token_validity_units {
     access_token  = "minutes"
     id_token      = "minutes"
     refresh_token = "minutes"
