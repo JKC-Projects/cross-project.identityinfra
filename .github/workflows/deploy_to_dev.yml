@@ -30,7 +30,7 @@ jobs:
     environment: development
     needs: is-terraform-code-good
     env:
-      TF_WORKSPACE: smalldomains--identityinfra-dev
+      TF_WORKSPACE: cross-project--identityinfra-dev
 
     steps:
     - name: Checkout

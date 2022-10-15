@@ -1,5 +1,5 @@
-resource "aws_cognito_user_pool" "smalldomains" {
-  name = "smalldomains-users"
+resource "aws_cognito_user_pool" "john-chung" {
+  name = "john-chung-cross-project--users"
 
   username_configuration {
     case_sensitive = true
@@ -48,12 +48,12 @@ resource "aws_cognito_user_pool" "smalldomains" {
 }
 
 resource "aws_cognito_user_pool_client" "smalldomains" {
-  name                                 = "web-app"
-  user_pool_id                         = aws_cognito_user_pool.smalldomains.id
-  callback_urls                        = var.environment == "prod" ? ["https://pages.small.domains"] : ["http://localhost:3000", "https://pages.dev.small.domains"]
+  name                                 = "small-domains--web-app"
+  user_pool_id                         = aws_cognito_user_pool.john-chung.id
+  callback_urls                        = var.environment == "prod" ? ["https://pages.small.domains"] : ["https://pages.dev.small.domains", "http://localhost:3000"]
   allowed_oauth_flows_user_pool_client = true
   allowed_oauth_flows                  = ["code"]
-  allowed_oauth_scopes                 = ["email", "openid"]
+  allowed_oauth_scopes                 = ["openid"]
   supported_identity_providers         = ["COGNITO"]
   prevent_user_existence_errors        = "ENABLED"
 }
@@ -61,5 +61,5 @@ resource "aws_cognito_user_pool_client" "smalldomains" {
 resource "aws_cognito_user_pool_domain" "smalldomains" {
   domain          = local.fqdn
   certificate_arn = module.auth.tls_cert.arn
-  user_pool_id    = aws_cognito_user_pool.smalldomains.id
+  user_pool_id    = aws_cognito_user_pool.john-chung.id
 }

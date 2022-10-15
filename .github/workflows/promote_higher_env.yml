@@ -32,7 +32,7 @@ jobs:
     environment: production
     needs: is-terraform-code-good
     env:
-      TF_WORKSPACE: smalldomains--identityinfra-prod
+      TF_WORKSPACE: cross-project--identityinfra-prod
 
     steps:
     - name: Checkout
