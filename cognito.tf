@@ -66,6 +66,17 @@ resource "aws_cognito_user_pool_client" "auth_only" {
   allowed_oauth_scopes                 = ["openid"]
   supported_identity_providers         = ["COGNITO"]
   prevent_user_existence_errors        = "ENABLED"
+
+  explicit_auth_flows     = ["ALLOW_REFRESH_TOKEN_AUTH"]
+  access_token_validity   = 3
+  id_token_validity       = 3
+  refresh_token_validity  = 120
+  enable_token_revocation = true
+  token_validity_units = {
+    access_token  = "minutes"
+    id_token      = "minutes"
+    refresh_token = "minutes"
+  }
 }
 
 resource "aws_cognito_user_pool_domain" "johnchung_auth" {
