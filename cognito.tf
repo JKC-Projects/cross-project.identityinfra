@@ -68,11 +68,11 @@ resource "aws_cognito_user_pool_client" "auth_only" {
   prevent_user_existence_errors        = "ENABLED"
 
   explicit_auth_flows     = ["ALLOW_REFRESH_TOKEN_AUTH"]
-  access_token_validity   = 3
-  id_token_validity       = 3
+  access_token_validity   = 5
+  id_token_validity       = 5
   refresh_token_validity  = 120
   enable_token_revocation = true
-  
+
   token_validity_units {
     access_token  = "minutes"
     id_token      = "minutes"
