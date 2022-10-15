@@ -47,9 +47,9 @@ resource "aws_cognito_user_pool" "john-chung" {
 
 resource "aws_cognito_user_pool_client" "auth_only" {
   for_each                             = { for c in local.user_pool_clients_auth_only : c.client_name => c }
-  name                                 = c.client_name
+  name                                 = each.value.client_name
   user_pool_id                         = aws_cognito_user_pool.john-chung.id
-  callback_urls                        = c.callback_urls
+  callback_urls                        = each.value.callback_urls
   allowed_oauth_flows_user_pool_client = true
   allowed_oauth_flows                  = ["code"]
   allowed_oauth_scopes                 = ["openid"]
