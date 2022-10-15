@@ -5,8 +5,19 @@ resource "aws_cognito_user_pool" "john-chung" {
     case_sensitive = true
   }
 
-  username_attributes      = ["email"]
+  alias_alias_attributes   = ["email", "preferred_username"]
   auto_verified_attributes = ["email"]
+
+  schema {
+    name                = "preferred_username"
+    attribute_data_type = "String"
+    required            = true
+    mutable             = true
+    string_attribute_constraints {
+      min_length = 5
+      max_length = 32
+    }
+  }
 
   password_policy {
     minimum_length    = 12
@@ -55,10 +66,4 @@ resource "aws_cognito_user_pool_client" "auth_only" {
   allowed_oauth_scopes                 = ["openid"]
   supported_identity_providers         = ["COGNITO"]
   prevent_user_existence_errors        = "ENABLED"
-}
-
-resource "aws_cognito_user_pool_domain" "johnchung_auth" {
-  domain          = local.fqdn
-  certificate_arn = module.auth.tls_cert.arn
-  user_pool_id    = aws_cognito_user_pool.john-chung.id
 }
