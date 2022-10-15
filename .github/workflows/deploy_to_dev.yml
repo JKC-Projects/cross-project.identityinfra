@@ -7,7 +7,9 @@ jobs:
   is-terraform-code-good:
     name: 'Validate and Format Code'
     runs-on: ubuntu-latest
-    
+    env:
+      TF_WORKSPACE: cross-project--identityinfra-dev
+
     steps:
     - name: Checkout
       uses: actions/checkout@v3
