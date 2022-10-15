@@ -45,7 +45,7 @@ resource "aws_cognito_user_pool" "john-chung" {
   }
  
   lifecycle {
-    prevent_delete = true 
+    prevent_destroy = true 
   }
 }
 
