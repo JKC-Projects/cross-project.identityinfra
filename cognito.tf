@@ -42,8 +42,8 @@ resource "aws_cognito_user_pool" "john-chung" {
 
   email_configuration {
     email_sending_account = "DEVELOPER"
-    source_arn = aws_ses_domain_identity.smalldomains.arn
-    from_email_address = "\"No Reply - Small Domains\" <noreply@${var.environment == "prod" ? "" : "${var.environment}."}small.domains>"
+    source_arn            = aws_ses_domain_identity.smalldomains.arn
+    from_email_address    = "\"No Reply - Small Domains\" <noreply@${var.environment == "prod" ? "" : "${var.environment}."}small.domains>"
   }
 }
 
