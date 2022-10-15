@@ -1,5 +1,5 @@
 resource "aws_cognito_user_pool" "john-chung" {
-  name = "cross-project--users"
+  name = local.userpool_name
 
   username_configuration {
     case_sensitive = true

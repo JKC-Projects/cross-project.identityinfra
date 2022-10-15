@@ -1,4 +1,5 @@
 locals {
+  userpool_name   = "cross-project--users"
   env_root_domain = format("%sjohn-chung.dev", var.environment == "prod" ? "" : "${var.environment}.")
   fqdn            = format("auth.%s", local.env_root_domain)
 
