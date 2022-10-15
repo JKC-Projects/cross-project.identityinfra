@@ -1,5 +1,5 @@
 resource "aws_cognito_user_pool" "john-chung" {
-  name = "john-chung-cross-project--users"
+  name = "cross-project--users"
 
   username_configuration {
     case_sensitive = true
@@ -43,16 +43,13 @@ resource "aws_cognito_user_pool" "john-chung" {
   email_configuration {
     email_sending_account = "COGNITO_DEFAULT"
   }
- 
-  lifecycle {
-    prevent_destroy = true 
-  }
 }
 
-resource "aws_cognito_user_pool_client" "smalldomains" {
-  name                                 = "small-domains--web-app"
+resource "aws_cognito_user_pool_client" "auth_only" {
+  for_each                             = { for c in local.user_pool_clients_auth_only : c.client_name => c }
+  name                                 = c.client_name
   user_pool_id                         = aws_cognito_user_pool.john-chung.id
-  callback_urls                        = var.environment == "prod" ? ["https://pages.small.domains"] : ["https://pages.dev.small.domains", "http://localhost:3000"]
+  callback_urls                        = c.callback_urls
   allowed_oauth_flows_user_pool_client = true
   allowed_oauth_flows                  = ["code"]
   allowed_oauth_scopes                 = ["openid"]
