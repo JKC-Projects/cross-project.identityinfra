@@ -67,3 +67,9 @@ resource "aws_cognito_user_pool_client" "auth_only" {
   supported_identity_providers         = ["COGNITO"]
   prevent_user_existence_errors        = "ENABLED"
 }
+
+resource "aws_cognito_user_pool_domain" "johnchung_auth" {
+  domain          = local.fqdn
+  certificate_arn = module.auth.tls_cert.arn
+  user_pool_id    = aws_cognito_user_pool.john-chung.id
+}
