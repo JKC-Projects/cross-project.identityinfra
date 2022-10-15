@@ -9,13 +9,11 @@ resource "aws_cognito_user_pool" "john-chung" {
   auto_verified_attributes = ["email"]
 
   schema {
-    name                = "nickname"
+    name                = "email"
     attribute_data_type = "String"
     required            = true
-    mutable             = true
     string_attribute_constraints {
-      min_length = 5
-      max_length = 32
+      
     }
   }
 
