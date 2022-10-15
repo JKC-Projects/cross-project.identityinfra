@@ -43,6 +43,8 @@ resource "aws_cognito_user_pool" "john-chung" {
   email_configuration {
     email_sending_account = "COGNITO_DEFAULT"
   }
+
+  prevent_delete = true
 }
 
 resource "aws_cognito_user_pool_client" "smalldomains" {
@@ -56,7 +58,7 @@ resource "aws_cognito_user_pool_client" "smalldomains" {
   prevent_user_existence_errors        = "ENABLED"
 }
 
-resource "aws_cognito_user_pool_domain" "smalldomains" {
+resource "aws_cognito_user_pool_domain" "johnchung_auth" {
   domain          = local.fqdn
   certificate_arn = module.auth.tls_cert.arn
   user_pool_id    = aws_cognito_user_pool.john-chung.id
