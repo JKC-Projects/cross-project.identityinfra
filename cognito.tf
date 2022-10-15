@@ -43,8 +43,10 @@ resource "aws_cognito_user_pool" "john-chung" {
   email_configuration {
     email_sending_account = "COGNITO_DEFAULT"
   }
-
-  prevent_delete = true
+ 
+  lifecycle {
+    prevent_delete = true 
+  }
 }
 
 resource "aws_cognito_user_pool_client" "smalldomains" {
