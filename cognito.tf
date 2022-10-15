@@ -5,11 +5,11 @@ resource "aws_cognito_user_pool" "john-chung" {
     case_sensitive = true
   }
 
-  alias_attributes         = ["email", "preferred_username"]
+  alias_attributes         = ["email"]
   auto_verified_attributes = ["email"]
 
   schema {
-    name                = "preferred_username"
+    name                = "nickname"
     attribute_data_type = "String"
     required            = true
     mutable             = true
