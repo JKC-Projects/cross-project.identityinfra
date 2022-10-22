@@ -8,7 +8,7 @@ locals {
       {
         project       = "small-domains"
         application   = "web-app"
-        callback_urls = var.environment == "prod" ? ["https://pages.small.domains"] : ["https://pages.dev.small.domains", "http://localhost:3000"]
+        callback_urls = var.environment == "prod" ? ["https://pages.small.domains/auth/JwtTokens"] : ["https://pages.dev.small.domains/auth/JwtTokens", "http://localhost:3000/auth/JwtTokens"]
       }
     ] :
     {
